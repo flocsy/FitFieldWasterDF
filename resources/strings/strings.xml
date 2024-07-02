@@ -1,0 +1,8 @@
+<strings>
+    <string id="AppName">FitFieldWaster</string>
+    <string id="settingsNumberOfSessionFields">Number of session fields</string>
+    <string id="settingsNumberOfLapFields">Number of lap fields</string>
+    <string id="settingsNumberOfRecordFields">Number of record fields</string>
+    <string id="settingsNumberOfFieldsPrompt"></string>
+    <string id="settingsFieldSize">Size of each fit field (change will take effect only after exiting the activity)</string>
+</strings>

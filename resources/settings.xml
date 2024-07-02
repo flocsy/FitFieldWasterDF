@@ -1,0 +1,18 @@
+<settings>
+    <setting propertyKey="@Properties.s" title="@Strings.settingsNumberOfSessionFields" prompt="@Strings.settingsNumberOfFieldsPrompt">
+        <settingConfig type="numeric" min="0" max="32"/>
+    </setting>
+    <setting propertyKey="@Properties.l" title="@Strings.settingsNumberOfLapFields" prompt="@Strings.settingsNumberOfFieldsPrompt">
+        <settingConfig type="numeric" min="0" max="32"/>
+    </setting>
+    <setting propertyKey="@Properties.r" title="@Strings.settingsNumberOfRecordFields" prompt="@Strings.settingsNumberOfFieldsPrompt">
+        <settingConfig type="numeric" min="0" max="32"/>
+    </setting>
+    <setting propertyKey="@Properties.w" title="@Strings.settingsFieldSize">
+        <settingConfig type="list">
+            <listEntry value="1">8 bits - 1 byte</listEntry>
+            <listEntry value="2">16 bits - 2 bytes</listEntry>
+            <listEntry value="4">32 bits - 4 bytes</listEntry>
+        </settingConfig>
+    </setting>
+</settings>

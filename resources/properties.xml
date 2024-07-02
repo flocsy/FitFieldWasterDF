@@ -1,0 +1,6 @@
+<properties>
+  <property id="s" type="number">0</property><!--s: number of session fields-->
+  <property id="l" type="number">0</property><!--l: number of lap fields-->
+  <property id="r" type="number">0</property><!--r: number of record fields-->
+  <property id="w" type="number">1</property><!--w: field size-->
+</properties>
