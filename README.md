@@ -1,5 +1,7 @@
 # Fit Field Waster DF
 
+<a href="http://apps.garmin.com/apps/2e8bf443-f030-4bee-b816-35f5eb404550"><img src="../images/available-connect-iq-badge.svg" height="60" alt="Download from Garmin Connect IQ"></a>
+
 ## Usage
 
 This data field is for CIQ developers. As the name suggests it is to "waste" fit fields and/or the total amount of fit bytes in order to test how another datafield behaves.
