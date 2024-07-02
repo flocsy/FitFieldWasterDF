@@ -1,6 +1,6 @@
 # Fit Field Waster DF
 
-<a href="http://apps.garmin.com/apps/2e8bf443-f030-4bee-b816-35f5eb404550"><img src="../images/available-connect-iq-badge.svg" height="60" alt="Download from Garmin Connect IQ"></a>
+<a href="http://apps.garmin.com/apps/2e8bf443-f030-4bee-b816-35f5eb404550"><img src="images/available-connect-iq-badge.svg" height="60" alt="Download from Garmin Connect IQ"></a>
 
 ## Usage
 
