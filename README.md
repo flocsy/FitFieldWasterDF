@@ -16,6 +16,13 @@ Note that the change of the field size only takes effect next time the data fiel
 If you like the app you can thank me by sending a beer: https://paypal.me/GavrielF or at least write a positive review with 5 stars ⭐⭐⭐⭐⭐.
 
 
+## Screenshots
+
+<img src="images/f6-4bytes-with-watch.png" height="396">
+<img src="images/settings-connect-iq-app.jpg" height="396">
+<img src="images/trash-bin-500x500.png" height="396">
+
+
 # Changelog
 
 1 (2024-07-03) initial version
