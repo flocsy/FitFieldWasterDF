@@ -11,7 +11,10 @@ This data field is for CIQ developers. As the name suggests it is to "waste" fit
 3. Edit the number of session, lap, record fields and the field size.
 4. Save the settings.
 
-Note that the change of the field size only takes effect next time the data field starts (You need to exit the activity, then enter it again)
+NOTE: only increase the number of fields while the data field is running (while looking at the layout - either before or after starting the activity). If you decrease any of them, then restart the data field.
+NOTE: the change of the field size only takes effect next time the data field starts (after you restart the data field).
+
+To restart the data field: You need to exit the activity, then enter it again.
 
 If you like the app you can thank me by sending a beer: https://paypal.me/GavrielF or at least write a positive review with 5 stars ⭐⭐⭐⭐⭐.
 
@@ -25,4 +28,6 @@ If you like the app you can thank me by sending a beer: https://paypal.me/Gavrie
 
 # Changelog
 
-1 (2024-07-03) initial version
+1.2 (2024-07-03) create fields in constructor to make it possible to crash the "other" data field and not this
+
+1.0 (2024-07-03) initial version

@@ -15,7 +15,7 @@ class FitFieldWasterFitContributor {
     private var mFieldSize as Number;
     private var mFieldType as Fit.DataType;
 
-    public function initialize() {
+    public function initialize(dataField as SimpleDataField) {
         mSessionFields = new Field[MAX_NUMBER_OF_FIELDS];
 
         mLapFields = new Field[MAX_NUMBER_OF_FIELDS];
@@ -30,29 +30,39 @@ class FitFieldWasterFitContributor {
             default:
                 mFieldType = Fit.DATA_TYPE_UINT8; break;
         }
+        onSettingsChanged(dataField);
     }
 
     public function onSettingsChanged(dataField as SimpleDataField) as Void {
         var numberOfSessionFields = getConfigNumber(PROPERTY_NUMBER_OF_SESSION_FIELDS, PROPERTY_NUMBER_OF_SESSION_FIELDS_DEFAULT);
-        for (var f = mNumberOfSessionFields; f < numberOfSessionFields; ++f) {
-            mSessionFields[f] = dataField.createField("session_field_" + f, f + 0 * MAX_NUMBER_OF_FIELDS, mFieldType, { :mesgType=>Fit.MESG_TYPE_SESSION });
-            mSessionFields[f].setData(f);
+        if (numberOfSessionFields > mNumberOfSessionFields) {
+            for (var f = mNumberOfSessionFields; f < numberOfSessionFields; ++f) {
+                var field = dataField.createField("session_field_" + f, f + 0 * MAX_NUMBER_OF_FIELDS, mFieldType, { :mesgType=>Fit.MESG_TYPE_SESSION });
+                field.setData(f);
+                mSessionFields[f] = field;
+            }
+            mNumberOfSessionFields = numberOfSessionFields;
         }
-        mNumberOfSessionFields = numberOfSessionFields;
 
         var numberOfLapFields = getConfigNumber(PROPERTY_NUMBER_OF_LAP_FIELDS, PROPERTY_NUMBER_OF_LAP_FIELDS_DEFAULT);
-        for (var f = mNumberOfLapFields; f < numberOfLapFields; ++f) {
-            mLapFields[f] = dataField.createField("lap_field_" + f, f + 1 * MAX_NUMBER_OF_FIELDS, mFieldType, { :mesgType=>Fit.MESG_TYPE_LAP });
-            mLapFields[f].setData(f);
+        if (numberOfLapFields > mNumberOfLapFields) {
+            for (var f = mNumberOfLapFields; f < numberOfLapFields; ++f) {
+                var field = dataField.createField("lap_field_" + f, f + 1 * MAX_NUMBER_OF_FIELDS, mFieldType, { :mesgType=>Fit.MESG_TYPE_LAP });
+                field.setData(f);
+                mLapFields[f] = field;
+            }
+            mNumberOfLapFields = numberOfLapFields;
         }
-        mNumberOfLapFields = numberOfLapFields;
 
         var numberOfRecordFields = getConfigNumber(PROPERTY_NUMBER_OF_RECORD_FIELDS, PROPERTY_NUMBER_OF_RECORD_FIELDS_DEFAULT);
-        for (var f = mNumberOfRecordFields; f < numberOfRecordFields; ++f) {
-            mRecordFields[f] = dataField.createField("record_field_" + f, f + 2 * MAX_NUMBER_OF_FIELDS, mFieldType, { :mesgType=>Fit.MESG_TYPE_RECORD });
-            mRecordFields[f].setData(f);
+        if (numberOfRecordFields > mNumberOfRecordFields) {
+            for (var f = mNumberOfRecordFields; f < numberOfRecordFields; ++f) {
+                var field = dataField.createField("record_field_" + f, f + 2 * MAX_NUMBER_OF_FIELDS, mFieldType, { :mesgType=>Fit.MESG_TYPE_RECORD });
+                field.setData(f);
+                mRecordFields[f] = field;
+            }
+            mNumberOfRecordFields = numberOfRecordFields;
         }
-        mNumberOfRecordFields = numberOfRecordFields;
     }
 
     public function setData() as String {
@@ -68,7 +78,10 @@ class FitFieldWasterFitContributor {
 
     public function onTimerLap() as Void {
         for (var f = 0; f < mNumberOfLapFields; ++f) {
-            mLapFields[f].setData(f);
+            var field = mLapFields[f];
+            if (field != null) {
+                field.setData(f);
+            }
         }
     }
 }

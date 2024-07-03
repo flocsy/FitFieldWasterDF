@@ -3,12 +3,13 @@ import Toybox.Lang;
 import Toybox.WatchUi;
 
 class FitFieldWasterDFApp extends Application.AppBase {
-    private var mView as FitFieldWasterDFView?;
+    private var mView as FitFieldWasterDFView;
     public var fitContributor as FitFieldWasterFitContributor;
 
     function initialize() {
         AppBase.initialize();
-        fitContributor = new FitFieldWasterFitContributor();
+        mView = new FitFieldWasterDFView();
+        self.fitContributor = new FitFieldWasterFitContributor(mView);
     }
 
     // onStart() is called on application start up
@@ -21,16 +22,12 @@ class FitFieldWasterDFApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() as [Views] or [Views, InputDelegates] {
-        mView = new FitFieldWasterDFView();
-        fitContributor.onSettingsChanged(mView);
         return [ mView ] as [Views];
     }
 
     // triggered by settings change in GCM
     public function onSettingsChanged() as Void {
-        if (mView != null) {
-            fitContributor.onSettingsChanged(mView);
-        }
+        self.fitContributor.onSettingsChanged(mView);
     }
 }
 
