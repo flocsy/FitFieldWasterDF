@@ -12,16 +12,21 @@ class FitFieldWasterFitContributor {
     private var mNumberOfRecordFields as Number = 0;
     private var mRecordFields as Array<Field?>;
 
-    private var mFieldSize as Number;
-    private var mFieldType as Fit.DataType;
+    private var mFieldSize as Number = PROPERTY_FIELD_SIZE_DEFAULT;
+    private var mFieldType as Fit.DataType = Fit.DATA_TYPE_UINT8;
 
-    public function initialize(dataField as SimpleDataField) {
+    public function initialize(dataField as DataField) {
         mSessionFields = new Field[MAX_NUMBER_OF_FIELDS];
 
         mLapFields = new Field[MAX_NUMBER_OF_FIELDS];
 
         mRecordFields = new Field[MAX_NUMBER_OF_FIELDS];
 
+        onSettingsChanged(dataField);
+    }
+
+    public function onSettingsChanged(dataField as DataField) as Void {
+        log("onSettingsChanged");
         mFieldSize = getConfigNumber(PROPERTY_FIELD_SIZE, PROPERTY_FIELD_SIZE_DEFAULT);
         switch (mFieldSize) {
             case 2: mFieldType = Fit.DATA_TYPE_UINT16; break;
@@ -30,22 +35,23 @@ class FitFieldWasterFitContributor {
             default:
                 mFieldType = Fit.DATA_TYPE_UINT8; break;
         }
-        onSettingsChanged(dataField);
-    }
 
-    public function onSettingsChanged(dataField as SimpleDataField) as Void {
         var numberOfSessionFields = getConfigNumber(PROPERTY_NUMBER_OF_SESSION_FIELDS, PROPERTY_NUMBER_OF_SESSION_FIELDS_DEFAULT);
-        if (numberOfSessionFields > mNumberOfSessionFields) {
+        if (numberOfSessionFields != mNumberOfSessionFields) {
+            // try {
             for (var f = mNumberOfSessionFields; f < numberOfSessionFields; ++f) {
                 var field = dataField.createField("session_field_" + f, f + 0 * MAX_NUMBER_OF_FIELDS, mFieldType, { :mesgType=>Fit.MESG_TYPE_SESSION });
                 field.setData(f);
                 mSessionFields[f] = field;
             }
             mNumberOfSessionFields = numberOfSessionFields;
+            // } catch (e) {
+            //     errorRelease("session fields: " + e.getErrorMessage());
+            // }
         }
 
         var numberOfLapFields = getConfigNumber(PROPERTY_NUMBER_OF_LAP_FIELDS, PROPERTY_NUMBER_OF_LAP_FIELDS_DEFAULT);
-        if (numberOfLapFields > mNumberOfLapFields) {
+        if (numberOfLapFields != mNumberOfLapFields) {
             for (var f = mNumberOfLapFields; f < numberOfLapFields; ++f) {
                 var field = dataField.createField("lap_field_" + f, f + 1 * MAX_NUMBER_OF_FIELDS, mFieldType, { :mesgType=>Fit.MESG_TYPE_LAP });
                 field.setData(f);
@@ -55,7 +61,7 @@ class FitFieldWasterFitContributor {
         }
 
         var numberOfRecordFields = getConfigNumber(PROPERTY_NUMBER_OF_RECORD_FIELDS, PROPERTY_NUMBER_OF_RECORD_FIELDS_DEFAULT);
-        if (numberOfRecordFields > mNumberOfRecordFields) {
+        if (numberOfRecordFields != mNumberOfRecordFields) {
             for (var f = mNumberOfRecordFields; f < numberOfRecordFields; ++f) {
                 var field = dataField.createField("record_field_" + f, f + 2 * MAX_NUMBER_OF_FIELDS, mFieldType, { :mesgType=>Fit.MESG_TYPE_RECORD });
                 field.setData(f);
@@ -63,6 +69,7 @@ class FitFieldWasterFitContributor {
             }
             mNumberOfRecordFields = numberOfRecordFields;
         }
+        WatchUi.requestUpdate();
     }
 
     public function setData() as String {
@@ -77,11 +84,13 @@ class FitFieldWasterFitContributor {
     }
 
     public function onTimerLap() as Void {
+        log("onTimerLap");
         for (var f = 0; f < mNumberOfLapFields; ++f) {
             var field = mLapFields[f];
             if (field != null) {
                 field.setData(f);
             }
         }
+        WatchUi.requestUpdate();
     }
 }
