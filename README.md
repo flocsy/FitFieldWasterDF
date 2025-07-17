@@ -28,6 +28,10 @@ If you like the app you can thank me by sending a beer: https://paypal.me/Gavrie
 
 # Changelog
 
+1.4 (2025-07-17) add edgemtb, fr570, fr970, venux1, vivoactive6
+
+1.3 (2025-04-07) fix lap fields, use DataField, add new devices
+
 1.2 (2024-07-03) create fields in constructor to make it possible to crash the "other" data field and not this
 
 1.0 (2024-07-03) initial version
