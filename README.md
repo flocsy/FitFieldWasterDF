@@ -28,6 +28,8 @@ If you like the app you can thank me by sending a beer: https://paypal.me/Gavrie
 
 # Changelog
 
+1.5 (2025-10-15) add edge550, edge850, etrextouch, fenix8pro, gpsmaph1, instinctcrossoveramoled, venu4
+
 1.4 (2025-07-17) add edgemtb, fr570, fr970, venux1, vivoactive6
 
 1.3 (2025-04-07) fix lap fields, use DataField, add new devices
