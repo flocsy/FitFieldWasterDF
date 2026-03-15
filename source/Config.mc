@@ -1,29 +1,31 @@
 import Toybox.Application;
 import Toybox.Application.Properties;
-import Toybox.Application.Storage;
 import Toybox.Lang;
 import Toybox.System;
 
-function setConfig(key as PropertyKeyType, val as PropertyValueType) as Void {
+// for SDK 8.4.1 or earlier:
+// typedef ValueType as PropertyValueType;
+
+function setConfig(key as String, val as ValueType) as Void {
     if (Application has :Properties) {
         Properties.setValue(key, val);
     } else {
-        getApp().setProperty(key, val);
+        getApp().setProperty(key, val as PropertyValueType);
     }
 }
 
 (:inline)
-function getConfigImpl(key as PropertyKeyType) as PropertyValueType or Null {
+function getConfigImpl(key as String) as ValueType or Null {
     var val;
     if (Application has :Properties) {
         val = Properties.getValue(key);
     } else {
-        val = getApp().getProperty(key);
+        val = getApp().getProperty(key) as ValueType?;
     }
     return val;
 }
 (:no_inline) // no_inline:-59
-function getConfig(key as PropertyKeyType) as PropertyValueType or Null {
+function getConfig(key as String) as ValueType or Null {
     var val;
     try {
         val = getConfigImpl(key);
@@ -36,11 +38,11 @@ function getConfig(key as PropertyKeyType) as PropertyValueType or Null {
 }
 
 (:background_app, :no_inline) // i: code: 15858 data: 6808 n: code: 15829 data: 6835 = -29+27=-2
-function getConfigNumber(key as PropertyKeyType, defaultValue as Number) as Number {
+function getConfigNumber(key as String, defaultValue as Number) as Number {
     return toConfigNumber(getConfig(key), defaultValue);
 }
 (:background_app, :no_inline)
-function toConfigNumber(value as PropertyValueType?, defaultValue as Number) as Number {
+function toConfigNumber(value as ValueType?, defaultValue as Number) as Number {
     // if (value instanceof Lang.Number) {
     //     return value;
     // }
